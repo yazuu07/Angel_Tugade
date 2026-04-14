@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jenny Lyn M. Aguas — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #048759;
+      color: #1a1a18;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .portfolio {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      border: 0.5px solid #e0ddd5;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 0.5px solid #e0ddd5;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Avatar upload area */
+    .avatar-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 20%;
+      background: #C0DD97;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 500;
+      color: #27500A;
+      overflow: hidden;
+      transition: filter 0.2s;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20%;
+      display: block;
+    }
+    .avatar-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.38);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+      gap: 4px;
+    }
+    .avatar-overlay svg {
+      width: 20px;
+      height: 20px;
+    }
+    .avatar-overlay span {
+      font-size: 10px;
+      color: #fff;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    .avatar-wrapper:hover .avatar-overlay { opacity: 1; }
+    .avatar-wrapper:hover .avatar { filter: brightness(0.75); }
+
+    #photo-input { display: none; }
+
+    .hero-text h1 {
+      font-size: 26px;
+      font-weight: 500;
+      color: #1a1a18;
+      line-height: 1.2;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #EAF3DE;
+      color: #048759;
+      font-weight: 500;
+    }
+    .tagline {
+      font-size: 14px;
+      color: #6b6b66;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999993;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .about-card {
+      background: #f5f5f0;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .about-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #1a1a18;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .contact-item {
+      background: #ffffff;
+      border: 0.5px solid #e0ddd5;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon.email { background: #bce6d8;}
+    .contact-icon.phone { background: #bce6d8; }
+    .contact-icon svg { width: 16px; height: 16px; }
+    .contact-label { font-size: 11px; color: #999993; margin-bottom: 2px; }
+    .contact-value { font-size: 13px; color: #1a1a18; font-weight: 500; word-break: break-all; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+    .skill-pill {
+      background: #f5f5f0;
+      border: 0.5px solid #e0ddd5;
+      border-radius: 20px;
+      padding: 8px 14px;
+      text-align: center;
+      font-size: 13px;
+      color: #6b6b66;
+    }
+
+    .goal-card {
+      border-left: 3px solid #639922;
+      background: #f5f5f0;
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .quote-mark {
+      font-size: 40px;
+      line-height: 0.5;
+      color: #97C459;
+      font-family: Georgia, serif;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .goal-card p { font-size: 15px; line-height: 1.8; color: #1a1a18; }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #999993;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid #e0ddd5;
+    }
+
+    @media (max-width: 480px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .hero { flex-direction: column; align-items: flex-start; }
+      .portfolio { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="portfolio">
+
+    <div class="hero">
+        <div class="avatar">
+          <img style="border-radius: 20%;" src="images/angel.png" alt="Evangeline Tugade" />
+        </div>
+        <div class="hero-text">
+          <h1>Evangeline Tugade</h1>
+          <span class="badge">BSIT</span>
+          <p class="tagline">Passionate, Determined student</p>
+        </div>
+      </div>
+
+  <p class="section-label">About Me</p>
+  <div class="about-card">
+    <p><q><i>Hardworking and determined to study. I am passionate about computers and technology, which is why I chose to take the BSIT course. I am a fast learner and ready to face the lessons to become a skilled IT professional in the future.</i></q></p>
+  </div>
+
+  <p class="section-label">Contact Information</p>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="contact-icon email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="2,4 12,13 22,4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">evangelinetugade6@gmail.com</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">0977 045 6350</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Evangeline Tugade &nbsp;·&nbsp; BSIT Student &nbsp;·&nbsp; Philippines</div>
+
+</div>
+
+<script>
+  function handlePhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById('avatar-img');
+      const initials = document.getElementById('avatar-initials');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      initials.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
+
+</body>
+</html>
